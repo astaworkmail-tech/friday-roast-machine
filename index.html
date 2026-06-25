@@ -19,13 +19,13 @@
 
 <!-- SEO Meta Tags -->
 <title>Friday Roast Machine — Feed It An Idea, It Roasts You</title>
-<meta name="description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
+<meta name="description" content="Push image-free + CORS-fixed board save version" />
 <meta property="og:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta property="og:description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
+<meta property="og:description" content="Push image-free + CORS-fixed board save version" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta name="twitter:description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
+<meta name="twitter:description" content="Push image-free + CORS-fixed board save version" />
 <!-- End SEO Meta Tags -->
 <meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-data">
 <script data-lp-token-hydrate>
@@ -320,7 +320,7 @@
   <section class="hero">
     <div class="kick">⚠ enter at your own ego's risk</div>
     <h1><span class="a">FEED IT</span><br><span class="b">YOUR IDEA.</span><br><span class="c">GET ROASTED.</span></h1>
-    <p class="sub">Type your startup, your side hustle, your 2am genius plan. The machine reads it, <b>roasts you alive</b> (or hands out rare praise), then <b>paints a picture</b> of exactly what it thinks of you. Survive the burn, score points, top the board. 🔥</p>
+    <p class="sub">Type your startup, your side hustle, your 2am genius plan. The machine reads it and <b>roasts you alive</b> (or hands out rare praise), then scores it out of 100. Survive the burn, top the board. 🔥</p>
   </section>
   <section class="machine" id="machine">
     <div class="mlabel">// drop it in</div>
@@ -340,7 +340,6 @@
         <div class="score" id="vscore">—</div>
         <div class="txt" id="vtxt"></div>
       </div>
-      <div class="art" id="art"><div class="gen">no picture yet</div></div>
       <div class="share">
         <button onclick="shareTo('x')">𝕏 Post it</button>
         <button onclick="shareTo('fb')">📘 Facebook</button>
@@ -368,7 +367,6 @@ const PROXY = (document.querySelector('meta[name="llm-proxy-url"]')||{}).content
 const PROVIDERS = (document.querySelector('meta[name="llm-providers"]')||{}).content || "";
 const PROVIDER = "openai";
 const TEXT_MODEL = "gpt-5.4-mini";
-const AI_READY = !!PROXY && PROVIDERS.split(',').filter(Boolean).indexOf(PROVIDER) !== -1;
 const BOARD_READ = "https://paymegpt.com/api/public/landing-pages/5192/sheet-data";
 const BOARD_SAVE = "https://paymegpt.com/api/webhooks/flow/3979/f07d925b43175ced507ffd28fea03988df165f7dc779cddbf614df25191e4d82";
 let mode = "roast";
@@ -392,7 +390,6 @@ function refuse(){
   tag.textContent = 'NICE TRY';
   document.getElementById('vscore').textContent = '🚫';
   document.getElementById('vtxt').textContent = "Yeah nah. The machine doesn't run on that. Keep it clean and feed it an actual idea. 😏";
-  document.getElementById('art').innerHTML = '<div class="gen">no roast, no picture, no board. try again with a real one.</div>';
 }
 async function runMachine(){
   const idea = document.getElementById('idea').value.trim();
@@ -410,7 +407,6 @@ async function runMachine(){
   tag.textContent = useMode==='roast' ? 'THE ROAST' : 'THE HYPE';
   document.getElementById('vscore').textContent = '—';
   document.getElementById('vtxt').innerHTML = '<span class="cursor"></span>';
-  document.getElementById('art').innerHTML = '<div class="gen">painting your portrait<span class="dots"></span></div>';
   if(dirty(idea) || dirty(who)){
     refuse();
     goBtn.disabled = false;
@@ -423,7 +419,6 @@ async function runMachine(){
     typeOut(document.getElementById('vtxt'), verdict.text);
     document.getElementById('vscore').textContent = verdict.score + ' / 100';
     lastResult = { who, idea, mode:useMode, text:verdict.text, score:verdict.score };
-    genImage(idea, useMode, verdict.text).catch(()=>{});
     saveScore(who, verdict.score, useMode, idea).catch(()=>{});
   }catch(e){
     document.getElementById('vtxt').textContent = "🔥 The machine overheated. Give it a sec and run it again.";
@@ -448,21 +443,6 @@ async function getVerdict(idea, useMode){
   if(m){ try{ const p = JSON.parse(m[0]); out.text = p.text||txt; out.score = parseInt(p.score)||out.score; if(p.safe===false) out.safe=false; }catch(e){} }
   return out;
 }
-async function genImage(idea, useMode, verdict){
-  const tone = useMode==='roast' ? "a funny, slightly chaotic, comedic illustration roasting this idea" : "a triumphant, hype, hero-style comedic illustration celebrating this idea";
-  const imgPrompt = "Vibrant flat editorial cartoon, bold neon teal and orange palette, dark background, " + tone + ": " + idea + ". No text in the image.";
-  const art = document.getElementById('art');
-  try{
-    const r = await fetch(PROXY + "/" + PROVIDER + "/images/generations", {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ model:"gpt-image-1", prompt: imgPrompt, size:"1024x1024", n:1 })
-    });
-    const data = await r.json();
-    const url = (data.data && (data.data[0].url || ("data:image/png;base64,"+data.data[0].b64_json))) || data.url || data.image;
-    if(url){ art.innerHTML = '<img alt="your roast portrait" src="'+url+'">'; if(lastResult) lastResult.img = url; }
-    else { art.innerHTML = '<div class="gen">🎨 (image gen unavailable)</div>'; }
-  }catch(e){ art.innerHTML = '<div class="gen">🎨 image gen unavailable right now</div>'; }
-}
 async function loadBoard(){
   const lb = document.getElementById('lb');
   try{
@@ -481,13 +461,11 @@ async function loadBoard(){
 }
 async function saveScore(name, score, md, idea){
   const trimmed = (idea||"").slice(0,60);
+  const payload = JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() } });
   try{
-    await fetch(BOARD_SAVE, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() } })
-    });
-    setTimeout(loadBoard, 2000);
-  }catch(e){}
+    await fetch(BOARD_SAVE, { method:"POST", headers:{"Content-Type":"text/plain;charset=UTF-8"}, body: payload, mode:"cors", keepalive:true });
+    setTimeout(loadBoard, 2500);
+  }catch(e){ setTimeout(loadBoard, 2500); }
 }
 function shareLine(){
   if(!lastResult) return "I just got roasted by the Friday Roast Machine 🔥";
