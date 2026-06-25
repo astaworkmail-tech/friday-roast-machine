@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/friday-roast-machine/">
+<!-- BASE:END -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<!-- SEO Meta Tags -->
+<title>Friday Roast Machine — Feed It An Idea, It Roasts You</title>
+<meta name="description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<meta property="og:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
+<meta property="og:description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
+<meta name="twitter:description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<!-- End SEO Meta Tags -->
+<meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-data">
+<meta name="sheet-rows-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-rows">
+<meta name="sheet-writes-enabled" content="true">
+<meta name="sheet-allow-create" content="true">
+<meta name="sheet-allow-delete" content="false">
+<meta name="sheet-writable-columns" content="Name,Email,Score,Mode,Date">
+<script data-lp-token-hydrate>
+(function(){try{
+  var slug="lp-mqu3j8sk-yqll1";
+  var SK='lp_access_'+slug;
+  var map={access_token:'lp_pw_',allowlist_access_token:'lp_al_',pin_access_token:'lp_pin_',paywall_access_token:'lp_paid_'};
+  var u=new URL(location.href);var found=null;var changed=false;
+  Object.keys(map).forEach(function(p){var v=u.searchParams.get(p);if(v){found=v;try{localStorage.setItem(map[p]+slug,v);}catch(e){}u.searchParams.delete(p);changed=true;}});
+  if(found){try{sessionStorage.setItem(SK,found);}catch(e){}}
+  else{try{if(!sessionStorage.getItem(SK)){var t=localStorage.getItem('lp_pw_'+slug)||localStorage.getItem('lp_al_'+slug)||localStorage.getItem('lp_pin_'+slug)||localStorage.getItem('lp_paid_'+slug);if(t)sessionStorage.setItem(SK,t);}}catch(e){}}
+  if(changed){try{history.replaceState(null,'',u.toString());}catch(e){}}
+  function getTok(){try{return sessionStorage.getItem(SK)||localStorage.getItem('lp_pw_'+slug)||localStorage.getItem('lp_al_'+slug)||localStorage.getItem('lp_pin_'+slug)||localStorage.getItem('lp_paid_'+slug);}catch(e){return null;}}
+  function needsToken(url,method){if(!url)return false;var s=String(url);var m=(method||'GET').toUpperCase();var isSheetWrite=(m==='POST'||m==='PATCH'||m==='PUT'||m==='DELETE')&&/\/sheet-rows(\/|$|\?)/.test(s);var isSheetRead=/\/sheet-data(\/|$|\?)/.test(s);var isLlm=/\/api\/landing-pages\/public\/[^/]+\/(llm|llm-config)(\/|$|\?)/.test(s);return isSheetWrite||isSheetRead||isLlm;}
+  if(window.fetch){var _f=window.fetch;window.fetch=function(input,init){try{var url=typeof input==='string'?input:(input&&input.url)||'';var method=(init&&init.method)||(input&&input.method)||'GET';if(needsToken(url,method)){var tok=getTok();if(tok){init=init||{};var h=new Headers(init.headers||(typeof input!=='string'?input.headers:undefined)||{});if(!h.has('X-Landing-Page-Token'))h.set('X-Landing-Page-Token',tok);init.headers=h;}}}catch(e){}return _f.call(this,input,init);};}
+  if(window.XMLHttpRequest){var _o=XMLHttpRequest.prototype.open;var _s=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.open=function(m,u){this.__lpM=m;this.__lpU=u;return _o.apply(this,arguments);};XMLHttpRequest.prototype.send=function(){try{if(needsToken(this.__lpU,this.__lpM)){var tok=getTok();if(tok)this.setRequestHeader('X-Landing-Page-Token',tok);}}catch(e){}return _s.apply(this,arguments);};}
+}catch(e){}})();
+</script>
+
+<style data-gate>body{visibility:hidden;}</style>
+<script data-gate>
+(function(){
+  var slug='lp-mqu3j8sk-yqll1';var apiBase='https://paymegpt.com';var PIN_TOKEN_KEY='lp_pin_'+slug;var ACCESS_TOKEN_KEY='lp_access_'+slug;var pinPassed=false;
+  var storedToken=localStorage.getItem(PIN_TOKEN_KEY);
+  if(storedToken){try{var b64=storedToken.indexOf('.')>0?storedToken.split('.')[0]:storedToken;var decoded=atob(b64);var parts=decoded.split(':');if(parts[0]==='pin'&&parts.length>=4){var ts=parseInt(parts[parts.length-1]);if(Date.now()-ts<30*24*60*60*1000){pinPassed=true;try{sessionStorage.setItem(ACCESS_TOKEN_KEY,storedToken);}catch(e){}}}}catch(e){}}
+  var urlParams=new URLSearchParams(window.location.search);var pinToken=urlParams.get('pin_access_token');
+  if(pinToken){localStorage.setItem(PIN_TOKEN_KEY,pinToken);try{sessionStorage.setItem(ACCESS_TOKEN_KEY,pinToken);}catch(e){}var url=new URL(window.location.href);url.searchParams.delete('pin_access_token');window.history.replaceState({},'',url.toString());pinPassed=true;}
+  if(pinPassed){document.addEventListener('DOMContentLoaded',function(){document.body.style.visibility='visible';});return;}
+  document.addEventListener('DOMContentLoaded',function(){
+  var currentMethod='email';var currentIdentifier='';
+  var gateHtml='<div id="pin-gate" style="position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;padding:16px;"><div style="background:white;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.15);width:100%;max-width:420px;padding:32px;text-align:center;"><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Identity Verification</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Please verify your identity to access this page.</p><form id="pin-request-form"><input type="email" id="pin-identifier" placeholder="Enter your email address" required style="width:100%;box-sizing:border-box;height:48px;padding:0 16px;background:#fff;color:#111827;-webkit-text-fill-color:#111827;font-size:16px;border:1px solid #d1d5db;border-radius:8px;outline:none;margin-bottom:12px;" /><div id="pin-req-error" style="display:none;color:#ef4444;font-size:14px;margin-bottom:12px;"></div><button type="submit" id="pin-send-btn" style="width:100%;height:48px;font-size:16px;font-weight:600;color:white;border:none;border-radius:8px;cursor:pointer;background:#2563eb;">Send Verification Code</button></form><form id="pin-verify-form" style="display:none;"><p id="pin-sent-msg" style="font-size:14px;color:#6b7280;margin-bottom:12px;"></p><input type="text" id="pin-code" placeholder="Enter 6-digit PIN" maxlength="6" style="width:100%;box-sizing:border-box;height:48px;padding:0 16px;background:#fff;color:#111827;-webkit-text-fill-color:#111827;font-size:20px;text-align:center;letter-spacing:8px;font-family:monospace;border:1px solid #d1d5db;border-radius:8px;outline:none;margin-bottom:12px;" required /><div id="pin-ver-error" style="display:none;color:#ef4444;font-size:14px;margin-bottom:12px;"></div><button type="submit" id="pin-verify-btn" style="width:100%;height:48px;font-size:16px;font-weight:600;color:white;border:none;border-radius:8px;cursor:pointer;background:#2563eb;">Verify PIN</button><button type="button" id="pin-resend-btn" style="width:100%;margin-top:8px;padding:8px;background:none;border:none;color:#6b7280;cursor:pointer;font-size:14px;">Resend PIN</button><button type="button" id="pin-back-btn" style="width:100%;padding:8px;background:none;border:none;color:#9ca3af;cursor:pointer;font-size:14px;">Use different contact</button></form></div></div>';
+  document.body.insertAdjacentHTML('beforeend',gateHtml);document.body.style.visibility='visible';
+  var reqForm=document.getElementById('pin-request-form');var verForm=document.getElementById('pin-verify-form');var idInput=document.getElementById('pin-identifier');var codeInput=document.getElementById('pin-code');var sendBtn=document.getElementById('pin-send-btn');var verifyBtn=document.getElementById('pin-verify-btn');var reqError=document.getElementById('pin-req-error');var verError=document.getElementById('pin-ver-error');var sentMsg=document.getElementById('pin-sent-msg');
+  
+  function sendPin(){var id=idInput.value.trim();if(!id)return;sendBtn.disabled=true;sendBtn.textContent='Sending...';reqError.style.display='none';var body=currentMethod==='sms'?{phone:id}:{email:id};fetch(apiBase+'/api/landing-pages/public/'+slug+'/generate-pin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.success){currentIdentifier=id;reqForm.style.display='none';verForm.style.display='block';sentMsg.textContent='We sent a 6-digit PIN to '+id;codeInput.focus();}else{reqError.textContent=d.message||'Failed to send PIN';reqError.style.display='block';}}).catch(function(){reqError.textContent='Failed to send PIN';reqError.style.display='block';}).finally(function(){sendBtn.disabled=false;sendBtn.textContent='Send Verification Code';});}
+  function verifyPin(){var pin=codeInput.value.trim();if(!pin||pin.length!==6){verError.textContent='Please enter the 6-digit PIN';verError.style.display='block';return;}verifyBtn.disabled=true;verifyBtn.textContent='Verifying...';verError.style.display='none';var body=currentMethod==='sms'?{phone:currentIdentifier,pin:pin}:{email:currentIdentifier,pin:pin};fetch(apiBase+'/api/landing-pages/public/'+slug+'/verify-pin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.verified){localStorage.setItem(PIN_TOKEN_KEY,d.accessToken);try{sessionStorage.setItem('lp_access_'+slug,d.accessToken);}catch(e){}window.location.reload();}else{verError.textContent=d.message||'Invalid PIN code';verError.style.display='block';}}).catch(function(){verError.textContent='Failed to verify PIN';verError.style.display='block';}).finally(function(){verifyBtn.disabled=false;verifyBtn.textContent='Verify PIN';});}
+  reqForm.addEventListener('submit',function(e){e.preventDefault();sendPin();});verForm.addEventListener('submit',function(e){e.preventDefault();verifyPin();});document.getElementById('pin-resend-btn').addEventListener('click',sendPin);document.getElementById('pin-back-btn').addEventListener('click',function(){verForm.style.display='none';reqForm.style.display='block';codeInput.value='';verError.style.display='none';});codeInput.addEventListener('input',function(e){e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,6);});idInput.focus();
+  });
+})();
+</script>
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=5192');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='ViqgXq';
+  var apiBase='https://paymegpt.com';
+  var successSubtext='';var successBtnLabel='Continue';var successBtnColor='#16a34a';var successRedirect='';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  function findPhone(){var ids=['phone','phoneNumber','phone-number','tel','telephone','mobile','mobileNumber','cell','contact-phone','buyer-phone'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.trim())return el.value.trim();}var inputs=document.querySelectorAll('input[type="tel"],input[name*="phone"],input[name*="tel"],input[name*="mobile"],input[placeholder*="phone"],input[placeholder*="Phone"]');for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.trim())return inputs[j].value.trim();}return '';}
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    var phone=findPhone();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    var __pLoc=(document.documentElement.lang||navigator.language||'en');
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,phone:phone||'',amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,locale:__pLoc,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var sidP=urlParams.get('session_id');
+      if(sidP){try{fetch(apiBase+'/api/landing-pages/public/'+slug+'/checkout/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:sidP})}).catch(function(){});}catch(e){}}
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+      var subTxt=successSubtext||('Thank you for purchasing '+pName+'.');
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">'+esc(subTxt)+'</p><button id="lp-pay-success-btn" style="padding:12px 32px;font-size:16px;font-weight:600;background:'+successBtnColor+';color:white;border:none;border-radius:8px;cursor:pointer;">'+esc(successBtnLabel)+'</button></div>';
+      document.body.appendChild(overlay);
+      var pBtn=document.getElementById('lp-pay-success-btn');
+      if(pBtn){pBtn.addEventListener('click',function(){if(successRedirect){window.location.href=successRedirect;}else{overlay.remove();window.history.replaceState({},'',window.location.pathname);}});}
+    }
+  });
+})();
+</script>
+<script data-cart>
+(function(){
+  var slug='ViqgXq';
+  var apiBase='https://paymegpt.com';
+  var successSubtext='';var successBtnLabel='Continue';var successBtnColor='#16a34a';var successRedirect='';
+  function findCartEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findCartName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  function findCartPhone(){var ids=['phone','phoneNumber','phone-number','tel','telephone','mobile','mobileNumber','cell','contact-phone','buyer-phone'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.trim())return el.value.trim();}var inputs=document.querySelectorAll('input[type="tel"],input[name*="phone"],input[name*="tel"],input[name*="mobile"],input[placeholder*="phone"],input[placeholder*="Phone"]');for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.trim())return inputs[j].value.trim();}return '';}
+  var __realCart=function(arg){
+    var items, email='', customerName='', successUrl, cancelUrl, currency;
+    if(Array.isArray(arg)){items=arg;}
+    else if(arg&&typeof arg==='object'){
+      items=arg.items;email=arg.email||'';customerName=arg.name||arg.customerName||'';
+      successUrl=arg.successUrl;cancelUrl=arg.cancelUrl;currency=arg.currency;
+    }
+    if(!Array.isArray(items)||items.length===0){alert('No items in cart.');return Promise.reject('no_items');}
+    var cleanItems=[];var totalCents=0;
+    for(var i=0;i<items.length;i++){
+      var it=items[i];if(!it||typeof it!=='object'){alert('Invalid item at position '+i);return Promise.reject('bad_item');}
+      var nm=typeof it.name==='string'?it.name.trim():'';
+      if(!nm){alert('Item '+(i+1)+' is missing a name.');return Promise.reject('no_name');}
+      var amt=typeof it.amountCents==='number'?it.amountCents:(typeof it.amount==='number'?Math.round(it.amount*100):NaN);
+      if(!isFinite(amt)||amt<1){alert('Item "'+nm+'" needs a valid amount in cents.');return Promise.reject('bad_amount');}
+      var qty=(typeof it.quantity==='number'&&it.quantity>0)?Math.floor(it.quantity):1;
+      cleanItems.push({name:nm,description:it.description||'',amountCents:amt,quantity:qty});
+      totalCents+=amt*qty;
+    }
+    if(totalCents<50){alert('Cart total must be at least $0.50');return Promise.reject('total_too_low');}
+    if(!email)email=findCartEmail();
+    if(!customerName)customerName=findCartName();
+    var cartPhone=findCartPhone();
+    if(!email){var p=window.prompt('Enter your email for the receipt:','');if(p&&p.indexOf('@')>-1){email=p.trim();}else{alert('An email address is required to complete checkout.');return Promise.reject('no_email');}}
+    var successBase=window.location.href.split('?')[0];
+    var body={email:email,name:customerName,items:cleanItems,locale:(document.documentElement.lang||navigator.language||'en')};
+    if(currency)body.currency=currency;
+    if(cartPhone)body.phone=cartPhone;
+    body.successUrl=successUrl||(successBase+'?cart=success&email='+encodeURIComponent(email)+'&session_id={CHECKOUT_SESSION_ID}');
+    body.cancelUrl=cancelUrl||(successBase+'?cart=cancelled');
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/cart/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process checkout');throw new Error(d.error);}
+    });
+  };
+  try{Object.defineProperty(window,'__processCart',{value:__realCart,writable:false,configurable:false});}catch(e){window.__processCart=__realCart;}
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('cart')==='success'){
+      var sidC=urlParams.get('session_id');
+      if(sidC){try{fetch(apiBase+'/api/landing-pages/public/'+slug+'/checkout/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:sidC})}).catch(function(){});}catch(e){}}
+      if(document.getElementById('payment-success-overlay')||document.getElementById('donation-success-overlay')||document.getElementById('cart-success-overlay'))return;
+      var overlay=document.createElement('div');overlay.id='cart-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+      var subTxt=successSubtext||'Thank you for your order.';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Order Confirmed!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">'+esc(subTxt)+'</p><button id="lp-cart-success-btn" style="padding:12px 32px;font-size:16px;font-weight:600;background:'+successBtnColor+';color:white;border:none;border-radius:8px;cursor:pointer;">'+esc(successBtnLabel)+'</button></div>';
+      document.body.appendChild(overlay);
+      var cBtn=document.getElementById('lp-cart-success-btn');
+      if(cBtn){cBtn.addEventListener('click',function(){if(successRedirect){window.location.href=successRedirect;}else{overlay.remove();window.history.replaceState({},'',window.location.pathname);}});}
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">the <b>Friday Roast Machine</b></div>
+    <div class="pill">powered by PayMeGPT</div>
+  </div>
+  <section class="hero">
+    <div class="kick">⚠ enter at your own ego's risk</div>
+    <h1><span class="a">FEED IT</span><br><span class="b">YOUR IDEA.</span><br><span class="c">GET ROASTED.</span></h1>
+    <p class="sub">Type your startup, your side hustle, your 2am genius plan. The machine reads it, <b>roasts you alive</b> (or hands out rare praise), then <b>paints a picture</b> of exactly what it thinks of you. Survive the burn, score points, top the board. 🔥</p>
+  </section>
+  <section class="machine" id="machine">
+    <div class="mlabel">// drop it in</div>
+    <textarea id="idea" placeholder="e.g. an app that delivers ice cream by drone, but only on Tuesdays, and it's subscription-only..."></textarea>
+    <div class="row">
+      <div class="mode" id="mode">
+        <button class="on" data-mode="roast">🔥 ROAST ME</button>
+        <button class="praise" data-mode="praise">✨ HYPE ME</button>
+        <button data-mode="surprise">🎲 SURPRISE</button>
+      </div>
+      <input class="name-in" id="who" placeholder="your name / handle (for the board)">
+    </div>
+    <button class="go" id="go"><span class="spark">🔥</span> RUN THE MACHINE</button>
+    <div class="result" id="result">
+      <div class="verdict">
+        <span class="tag roast" id="vtag">THE ROAST</span>
+        <div class="score" id="vscore">—</div>
+        <div class="txt" id="vtxt"></div>
+      </div>
+      <div class="art" id="art"><div class="gen">no picture yet</div></div>
+      <div class="share">
+        <button onclick="shareTo('x')">𝕏 Post it</button>
+        <button onclick="shareTo('fb')">📘 Facebook</button>
+        <button onclick="shareTo('wa')">💬 WhatsApp</button>
+        <button onclick="copyRoast()">📋 Copy</button>
+      </div>
+    </div>
+  </section>
+  <section class="board" id="board">
+    <h2>HALL OF <span>SHAME</span></h2>
+    <div class="note">// highest roast-survival scores this week · auto-saved to the sheet</div>
+    <div class="lb" id="lb"><div class="lb-empty">loading the board…</div></div>
+  </section>
+  <footer>
+    <div class="made">built by <a href="https://limitlessfiji.org" target="_blank">Asta</a> on <a href="https://paymegpt.com" target="_blank">PayMeGPT</a> 🇫🇯</div>
+    <div class="links">
+      <a href="https://www.facebook.com/share/g/1AyKwQknQE/" target="_blank">FB Group</a>
+      <a href="https://discord.gg/sCVB7mvNKt" target="_blank">Discord</a>
+    </div>
+  </footer>
+</div>
+<div class="toast" id="toast">copied 🔥</div>
+<script>
+const PROXY = (document.querySelector('meta[name="llm-proxy-url"]')||{}).content || "";
+const PROVIDERS = (document.querySelector('meta[name="llm-providers"]')||{}).content || "";
+const SHEET_READ = (document.querySelector('meta[name="sheet-data-url"]')||{}).content || "";
+const SHEET_WRITE = (document.querySelector('meta[name="sheet-rows-url"]')||{}).content || "";
+const PROVIDER = "openai";
+const TEXT_MODEL = "gpt-5.4-mini";
+const AI_READY = !!PROXY && PROVIDERS.split(',').filter(Boolean).indexOf(PROVIDER) !== -1;
+let mode = "roast";
+let lastResult = null;
+document.querySelectorAll('#mode button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#mode button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); mode = b.dataset.mode;
+  });
+});
+const goBtn = document.getElementById('go');
+goBtn.addEventListener('click', runMachine);
+async function runMachine(){
+  const idea = document.getElementById('idea').value.trim();
+  if(idea.length < 4){ shake(); return; }
+  const who = document.getElementById('who').value.trim() || "Anonymous Brave Soul";
+  let useMode = mode === "surprise" ? (Math.random()>0.5?"roast":"praise") : mode;
+  goBtn.disabled = true;
+  goBtn.innerHTML = '<span class="spark">⚙️</span> THE MACHINE IS THINKING…';
+  const res = document.getElementById('result');
+  res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth',block:'center'});
+  const tag = document.getElementById('vtag');
+  tag.className = 'tag ' + (useMode==='roast'?'roast':'praise');
+  tag.textContent = useMode==='roast' ? 'THE ROAST' : 'THE HYPE';
+  document.getElementById('vscore').textContent = '—';
+  document.getElementById('vtxt').innerHTML = '<span class="cursor"></span>';
+  document.getElementById('art').innerHTML = '<div class="gen">painting your portrait<span class="dots"></span></div>';
+  try{
+    const verdict = await getVerdict(idea, useMode);
+    typeOut(document.getElementById('vtxt'), verdict.text);
+    document.getElementById('vscore').textContent = verdict.score + ' / 100';
+    lastResult = { who, idea, mode:useMode, text:verdict.text, score:verdict.score };
+    genImage(idea, useMode, verdict.text).catch(()=>{});
+    saveScore(who, verdict.score, useMode).catch(()=>{});
+  }catch(e){
+    document.getElementById('vtxt').textContent = "🔥 The machine overheated. Give it a sec and run it again.";
+  }finally{
+    goBtn.disabled = false;
+    goBtn.innerHTML = '<span class="spark">🔥</span> RUN IT AGAIN';
+  }
+}
+async function getVerdict(idea, useMode){
+  const sys = useMode==='roast'
+    ? "You are the Friday Roast Machine: a savage, witty stand-up comedian AI. Roast the user's idea HARD but playfully, punchy, clever, never genuinely cruel, no slurs, nothing about protected groups. 3-4 sharp sentences. End by grudgingly admitting ONE thing that could actually work."
+    : "You are the Friday Roast Machine in HYPE mode: an over-the-top hype-man AI. Praise the user's idea with wild, funny, specific enthusiasm, 3-4 sentences. Be genuinely encouraging but keep it ridiculous and fun. Sneak in one real, useful angle.";
+  const prompt = sys + "\n\nReturn STRICT JSON only, no markdown: {\"text\":\"...\",\"score\":<integer 1-100>}. The score = how good the idea actually is (roast mode can still give a high score to a secretly great idea).\n\nIDEA: " + idea;
+  const r = await fetch(PROXY + "/" + PROVIDER, {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ model: TEXT_MODEL, messages:[{role:"user",content:prompt}], max_tokens: 400, temperature: 1.0 })
+  });
+  const data = await r.json();
+  let txt = extractText(data);
+  const m = txt.match(/\{[\s\S]*\}/);
+  let out = { text: txt, score: Math.floor(Math.random()*40)+50 };
+  if(m){ try{ const p = JSON.parse(m[0]); out.text = p.text||txt; out.score = parseInt(p.score)||out.score; }catch(e){} }
+  return out;
+}
+async function genImage(idea, useMode, verdict){
+  const tone = useMode==='roast' ? "a funny, slightly chaotic, comedic illustration roasting this idea" : "a triumphant, hype, hero-style comedic illustration celebrating this idea";
+  const imgPrompt = "Vibrant flat editorial cartoon, bold neon teal and orange palette, dark background, " + tone + ": " + idea + ". No text in the image.";
+  const art = document.getElementById('art');
+  try{
+    const r = await fetch(PROXY + "/" + PROVIDER + "/images/generations", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"gpt-image-1", prompt: imgPrompt, size:"1024x1024", n:1 })
+    });
+    const data = await r.json();
+    const url = (data.data && (data.data[0].url || ("data:image/png;base64,"+data.data[0].b64_json))) || data.url || data.image;
+    if(url){ art.innerHTML = '<img alt="your roast portrait" src="'+url+'">'; if(lastResult) lastResult.img = url; }
+    else { art.innerHTML = '<div class="gen">🎨 (image gen not wired yet)</div>'; }
+  }catch(e){ art.innerHTML = '<div class="gen">🎨 image gen unavailable right now</div>'; }
+}
+async function loadBoard(){
+  const lb = document.getElementById('lb');
+  if(!SHEET_READ){ lb.innerHTML = '<div class="lb-empty">leaderboard goes live once the Google Sheet is linked 📊</div>'; return; }
+  try{
+    const r = await fetch(SHEET_READ);
+    const data = await r.json();
+    const rows = (data.rows||data||[]).filter(x=>x.Name||x.name);
+    rows.sort((a,b)=> (parseInt(b.Score||b.score||0)) - (parseInt(a.Score||a.score||0)));
+    const top = rows.slice(0,10);
+    if(!top.length){ lb.innerHTML = '<div class="lb-empty">no survivors yet. be the first to run the machine 🔥</div>'; return; }
+    lb.innerHTML = top.map((x,i)=>{
+      const name=(x.Name||x.name||'???'); const score=(x.Score||x.score||0); const md=(x.Mode||x.mode||'');
+      return '<div class="lb-row"><div class="rank">'+(i+1)+'</div><div class="who">'+esc(name)+'<small>'+esc(md)+'</small></div><div class="pts">'+esc(score)+'</div></div>';
+    }).join('');
+  }catch(e){ lb.innerHTML = '<div class="lb-empty">couldn\'t load the board right now 😬</div>'; }
+}
+async function saveScore(name, score, md){
+  if(!SHEET_WRITE) return;
+  try{
+    await fetch(SHEET_WRITE, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ Name:name, Score:score, Mode:md, Date:new Date().toISOString() }) });
+    setTimeout(loadBoard, 1200);
+  }catch(e){}
+}
+function shareLine(){
+  if(!lastResult) return "I just got roasted by the Friday Roast Machine 🔥";
+  return '🔥 The Friday Roast Machine scored my idea '+lastResult.score+'/100:\n"'+lastResult.text.slice(0,160)+'..."\nRun yours 👇';
+}
+function shareTo(net){
+  const url = location.href; const t = encodeURIComponent(shareLine()); const u = encodeURIComponent(url); let link="";
+  if(net==='x') link="https://twitter.com/intent/tweet?text="+t+"&url="+u;
+  if(net==='fb') link="https://www.facebook.com/sharer/sharer.php?u="+u+"&quote="+t;
+  if(net==='wa') link="https://wa.me/?text="+t+"%20"+u;
+  window.open(link,'_blank','width=600,height=520');
+}
+function copyRoast(){ navigator.clipboard.writeText(shareLine()+"\n"+location.href).then(()=>toast("copied 🔥")); }
+function extractText(data){
+  if(!data) return "";
+  if(data.content && Array.isArray(data.content)) return data.content.filter(b=>b.type==='text').map(b=>b.text).join("\n");
+  if(data.choices && data.choices[0]) return data.choices[0].message?.content || data.choices[0].text || "";
+  if(typeof data.text==='string') return data.text;
+  return JSON.stringify(data);
+}
+function typeOut(el, text){
+  el.textContent=""; let i=0; const cur=document.createElement('span'); cur.className='cursor'; el.appendChild(cur);
+  const t=setInterval(()=>{ if(i>=text.length){ clearInterval(t); cur.remove(); return; } cur.insertAdjacentText('beforebegin', text[i]); i++; }, 14);
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function shake(){const t=document.getElementById('idea');t.style.borderColor='var(--fire)';t.animate([{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(0)'}],{duration:240});setTimeout(()=>t.style.borderColor='',600)}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1600)}
+loadBoard();
+</script>
+</body>
+</html>
