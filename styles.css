@@ -70,7 +70,7 @@
   .lb-row:nth-child(2) .rank{color:#cfd8d4}
   .lb-row:nth-child(3) .rank{color:#b5733a}
   .lb-row .who{font-family:var(--mono);font-size:14px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .lb-row .who small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+  .lb-row .who small{display:block;color:var(--muted);font-size:11px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .lb-row .pts{font-family:var(--display);font-size:26px;color:var(--teal)}
   .lb-empty{padding:34px 18px;text-align:center;font-family:var(--mono);font-size:13px;color:var(--muted)}
   footer{margin:72px 0 40px;border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
