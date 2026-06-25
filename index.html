@@ -19,20 +19,15 @@
 
 <!-- SEO Meta Tags -->
 <title>Friday Roast Machine — Feed It An Idea, It Roasts You</title>
-<meta name="description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<meta name="description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
 <meta property="og:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta property="og:description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<meta property="og:description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta name="twitter:description" content="Link leaderboard sheet, enable writes (append only), turn on email PIN gate" />
+<meta name="twitter:description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
 <!-- End SEO Meta Tags -->
 <meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-data">
-<meta name="sheet-rows-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-rows">
-<meta name="sheet-writes-enabled" content="true">
-<meta name="sheet-allow-create" content="true">
-<meta name="sheet-allow-delete" content="false">
-<meta name="sheet-writable-columns" content="Name,Email,Score,Mode,Date">
 <script data-lp-token-hydrate>
 (function(){try{
   var slug="lp-mqu3j8sk-yqll1";
@@ -50,27 +45,6 @@
 }catch(e){}})();
 </script>
 
-<style data-gate>body{visibility:hidden;}</style>
-<script data-gate>
-(function(){
-  var slug='lp-mqu3j8sk-yqll1';var apiBase='https://paymegpt.com';var PIN_TOKEN_KEY='lp_pin_'+slug;var ACCESS_TOKEN_KEY='lp_access_'+slug;var pinPassed=false;
-  var storedToken=localStorage.getItem(PIN_TOKEN_KEY);
-  if(storedToken){try{var b64=storedToken.indexOf('.')>0?storedToken.split('.')[0]:storedToken;var decoded=atob(b64);var parts=decoded.split(':');if(parts[0]==='pin'&&parts.length>=4){var ts=parseInt(parts[parts.length-1]);if(Date.now()-ts<30*24*60*60*1000){pinPassed=true;try{sessionStorage.setItem(ACCESS_TOKEN_KEY,storedToken);}catch(e){}}}}catch(e){}}
-  var urlParams=new URLSearchParams(window.location.search);var pinToken=urlParams.get('pin_access_token');
-  if(pinToken){localStorage.setItem(PIN_TOKEN_KEY,pinToken);try{sessionStorage.setItem(ACCESS_TOKEN_KEY,pinToken);}catch(e){}var url=new URL(window.location.href);url.searchParams.delete('pin_access_token');window.history.replaceState({},'',url.toString());pinPassed=true;}
-  if(pinPassed){document.addEventListener('DOMContentLoaded',function(){document.body.style.visibility='visible';});return;}
-  document.addEventListener('DOMContentLoaded',function(){
-  var currentMethod='email';var currentIdentifier='';
-  var gateHtml='<div id="pin-gate" style="position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;padding:16px;"><div style="background:white;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.15);width:100%;max-width:420px;padding:32px;text-align:center;"><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Identity Verification</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Please verify your identity to access this page.</p><form id="pin-request-form"><input type="email" id="pin-identifier" placeholder="Enter your email address" required style="width:100%;box-sizing:border-box;height:48px;padding:0 16px;background:#fff;color:#111827;-webkit-text-fill-color:#111827;font-size:16px;border:1px solid #d1d5db;border-radius:8px;outline:none;margin-bottom:12px;" /><div id="pin-req-error" style="display:none;color:#ef4444;font-size:14px;margin-bottom:12px;"></div><button type="submit" id="pin-send-btn" style="width:100%;height:48px;font-size:16px;font-weight:600;color:white;border:none;border-radius:8px;cursor:pointer;background:#2563eb;">Send Verification Code</button></form><form id="pin-verify-form" style="display:none;"><p id="pin-sent-msg" style="font-size:14px;color:#6b7280;margin-bottom:12px;"></p><input type="text" id="pin-code" placeholder="Enter 6-digit PIN" maxlength="6" style="width:100%;box-sizing:border-box;height:48px;padding:0 16px;background:#fff;color:#111827;-webkit-text-fill-color:#111827;font-size:20px;text-align:center;letter-spacing:8px;font-family:monospace;border:1px solid #d1d5db;border-radius:8px;outline:none;margin-bottom:12px;" required /><div id="pin-ver-error" style="display:none;color:#ef4444;font-size:14px;margin-bottom:12px;"></div><button type="submit" id="pin-verify-btn" style="width:100%;height:48px;font-size:16px;font-weight:600;color:white;border:none;border-radius:8px;cursor:pointer;background:#2563eb;">Verify PIN</button><button type="button" id="pin-resend-btn" style="width:100%;margin-top:8px;padding:8px;background:none;border:none;color:#6b7280;cursor:pointer;font-size:14px;">Resend PIN</button><button type="button" id="pin-back-btn" style="width:100%;padding:8px;background:none;border:none;color:#9ca3af;cursor:pointer;font-size:14px;">Use different contact</button></form></div></div>';
-  document.body.insertAdjacentHTML('beforeend',gateHtml);document.body.style.visibility='visible';
-  var reqForm=document.getElementById('pin-request-form');var verForm=document.getElementById('pin-verify-form');var idInput=document.getElementById('pin-identifier');var codeInput=document.getElementById('pin-code');var sendBtn=document.getElementById('pin-send-btn');var verifyBtn=document.getElementById('pin-verify-btn');var reqError=document.getElementById('pin-req-error');var verError=document.getElementById('pin-ver-error');var sentMsg=document.getElementById('pin-sent-msg');
-  
-  function sendPin(){var id=idInput.value.trim();if(!id)return;sendBtn.disabled=true;sendBtn.textContent='Sending...';reqError.style.display='none';var body=currentMethod==='sms'?{phone:id}:{email:id};fetch(apiBase+'/api/landing-pages/public/'+slug+'/generate-pin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.success){currentIdentifier=id;reqForm.style.display='none';verForm.style.display='block';sentMsg.textContent='We sent a 6-digit PIN to '+id;codeInput.focus();}else{reqError.textContent=d.message||'Failed to send PIN';reqError.style.display='block';}}).catch(function(){reqError.textContent='Failed to send PIN';reqError.style.display='block';}).finally(function(){sendBtn.disabled=false;sendBtn.textContent='Send Verification Code';});}
-  function verifyPin(){var pin=codeInput.value.trim();if(!pin||pin.length!==6){verError.textContent='Please enter the 6-digit PIN';verError.style.display='block';return;}verifyBtn.disabled=true;verifyBtn.textContent='Verifying...';verError.style.display='none';var body=currentMethod==='sms'?{phone:currentIdentifier,pin:pin}:{email:currentIdentifier,pin:pin};fetch(apiBase+'/api/landing-pages/public/'+slug+'/verify-pin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.verified){localStorage.setItem(PIN_TOKEN_KEY,d.accessToken);try{sessionStorage.setItem('lp_access_'+slug,d.accessToken);}catch(e){}window.location.reload();}else{verError.textContent=d.message||'Invalid PIN code';verError.style.display='block';}}).catch(function(){verError.textContent='Failed to verify PIN';verError.style.display='block';}).finally(function(){verifyBtn.disabled=false;verifyBtn.textContent='Verify PIN';});}
-  reqForm.addEventListener('submit',function(e){e.preventDefault();sendPin();});verForm.addEventListener('submit',function(e){e.preventDefault();verifyPin();});document.getElementById('pin-resend-btn').addEventListener('click',sendPin);document.getElementById('pin-back-btn').addEventListener('click',function(){verForm.style.display='none';reqForm.style.display='block';codeInput.value='';verError.style.display='none';});codeInput.addEventListener('input',function(e){e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,6);});idInput.focus();
-  });
-})();
-</script>
 <script data-field-replace>
 (function(){
   var params=new URLSearchParams(window.location.search);
@@ -377,7 +351,7 @@
   </section>
   <section class="board" id="board">
     <h2>HALL OF <span>SHAME</span></h2>
-    <div class="note">// highest roast-survival scores this week · auto-saved to the sheet</div>
+    <div class="note">// highest roast-survival scores · updates live</div>
     <div class="lb" id="lb"><div class="lb-empty">loading the board…</div></div>
   </section>
   <footer>
@@ -392,11 +366,11 @@
 <script>
 const PROXY = (document.querySelector('meta[name="llm-proxy-url"]')||{}).content || "";
 const PROVIDERS = (document.querySelector('meta[name="llm-providers"]')||{}).content || "";
-const SHEET_READ = (document.querySelector('meta[name="sheet-data-url"]')||{}).content || "";
-const SHEET_WRITE = (document.querySelector('meta[name="sheet-rows-url"]')||{}).content || "";
 const PROVIDER = "openai";
 const TEXT_MODEL = "gpt-5.4-mini";
 const AI_READY = !!PROXY && PROVIDERS.split(',').filter(Boolean).indexOf(PROVIDER) !== -1;
+const BOARD_READ = "https://paymegpt.com/api/public/landing-pages/5192/sheet-data";
+const BOARD_SAVE = "https://paymegpt.com/api/webhooks/flow/3979/f07d925b43175ced507ffd28fea03988df165f7dc779cddbf614df25191e4d82";
 let mode = "roast";
 let lastResult = null;
 document.querySelectorAll('#mode button').forEach(b=>{
@@ -444,7 +418,7 @@ async function getVerdict(idea, useMode){
   const prompt = sys + "\n\nReturn STRICT JSON only, no markdown: {\"text\":\"...\",\"score\":<integer 1-100>}. The score = how good the idea actually is (roast mode can still give a high score to a secretly great idea).\n\nIDEA: " + idea;
   const r = await fetch(PROXY + "/" + PROVIDER, {
     method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({ model: TEXT_MODEL, messages:[{role:"user",content:prompt}], max_tokens: 400, temperature: 1.0 })
+    body: JSON.stringify({ model: TEXT_MODEL, messages:[{role:"user",content:prompt}], max_completion_tokens: 500 })
   });
   const data = await r.json();
   let txt = extractText(data);
@@ -465,16 +439,15 @@ async function genImage(idea, useMode, verdict){
     const data = await r.json();
     const url = (data.data && (data.data[0].url || ("data:image/png;base64,"+data.data[0].b64_json))) || data.url || data.image;
     if(url){ art.innerHTML = '<img alt="your roast portrait" src="'+url+'">'; if(lastResult) lastResult.img = url; }
-    else { art.innerHTML = '<div class="gen">🎨 (image gen not wired yet)</div>'; }
+    else { art.innerHTML = '<div class="gen">🎨 (image gen unavailable)</div>'; }
   }catch(e){ art.innerHTML = '<div class="gen">🎨 image gen unavailable right now</div>'; }
 }
 async function loadBoard(){
   const lb = document.getElementById('lb');
-  if(!SHEET_READ){ lb.innerHTML = '<div class="lb-empty">leaderboard goes live once the Google Sheet is linked 📊</div>'; return; }
   try{
-    const r = await fetch(SHEET_READ);
+    const r = await fetch(BOARD_READ);
     const data = await r.json();
-    const rows = (data.rows||data||[]).filter(x=>x.Name||x.name);
+    const rows = (data.rows||data.data||data||[]).filter(x=>x.Name||x.name);
     rows.sort((a,b)=> (parseInt(b.Score||b.score||0)) - (parseInt(a.Score||a.score||0)));
     const top = rows.slice(0,10);
     if(!top.length){ lb.innerHTML = '<div class="lb-empty">no survivors yet. be the first to run the machine 🔥</div>'; return; }
@@ -482,13 +455,15 @@ async function loadBoard(){
       const name=(x.Name||x.name||'???'); const score=(x.Score||x.score||0); const md=(x.Mode||x.mode||'');
       return '<div class="lb-row"><div class="rank">'+(i+1)+'</div><div class="who">'+esc(name)+'<small>'+esc(md)+'</small></div><div class="pts">'+esc(score)+'</div></div>';
     }).join('');
-  }catch(e){ lb.innerHTML = '<div class="lb-empty">couldn\'t load the board right now 😬</div>'; }
+  }catch(e){ lb.innerHTML = '<div class="lb-empty">board\'s warming up — check back in a sec 🔥</div>'; }
 }
 async function saveScore(name, score, md){
-  if(!SHEET_WRITE) return;
   try{
-    await fetch(SHEET_WRITE, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ Name:name, Score:score, Mode:md, Date:new Date().toISOString() }) });
-    setTimeout(loadBoard, 1200);
+    await fetch(BOARD_SAVE, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Date:new Date().toISOString() } })
+    });
+    setTimeout(loadBoard, 2000);
   }catch(e){}
 }
 function shareLine(){
