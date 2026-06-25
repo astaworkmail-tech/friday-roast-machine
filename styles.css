@@ -50,11 +50,6 @@
   .verdict .txt{font-size:17px;color:var(--ink);white-space:pre-wrap}
   .verdict .txt .cursor{display:inline-block;width:9px;height:19px;background:var(--teal);vertical-align:-3px;animation:bl .8s steps(2) infinite}
   @keyframes bl{50%{opacity:0}}
-  .art{margin-top:16px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg2);min-height:90px;display:flex;align-items:center;justify-content:center}
-  .art img{width:100%;display:block}
-  .art .gen{font-family:var(--mono);font-size:13px;color:var(--muted);padding:30px;text-align:center}
-  .art .gen .dots::after{content:"";animation:dots 1.4s steps(4,end) infinite}
-  @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
   .share{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
   .share button{flex:1 1 130px;background:var(--card);border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:13px;padding:13px;border-radius:12px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:7px}
   .share button:hover{border-color:var(--teal);color:var(--teal)}
