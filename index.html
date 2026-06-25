@@ -19,13 +19,13 @@
 
 <!-- SEO Meta Tags -->
 <title>Friday Roast Machine — Feed It An Idea, It Roasts You</title>
-<meta name="description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
+<meta name="description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
 <meta property="og:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta property="og:description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
+<meta property="og:description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta name="twitter:description" content="Push gateless HTML, turn off PIN gate and sheet writes, keep sheet linked for public reads" />
+<meta name="twitter:description" content="Push final HTML: name required, idea on board, vulgar-refuse logic" />
 <!-- End SEO Meta Tags -->
 <meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-data">
 <script data-lp-token-hydrate>
@@ -331,7 +331,7 @@
         <button class="praise" data-mode="praise">✨ HYPE ME</button>
         <button data-mode="surprise">🎲 SURPRISE</button>
       </div>
-      <input class="name-in" id="who" placeholder="your name / handle (for the board)">
+      <input class="name-in" id="who" placeholder="your name / handle (required for the board)" required>
     </div>
     <button class="go" id="go"><span class="spark">🔥</span> RUN THE MACHINE</button>
     <div class="result" id="result">
@@ -351,7 +351,7 @@
   </section>
   <section class="board" id="board">
     <h2>HALL OF <span>SHAME</span></h2>
-    <div class="note">// highest roast-survival scores · updates live</div>
+    <div class="note">// the ideas brave enough to face the machine · updates live</div>
     <div class="lb" id="lb"><div class="lb-empty">loading the board…</div></div>
   </section>
   <footer>
@@ -381,10 +381,24 @@ document.querySelectorAll('#mode button').forEach(b=>{
 });
 const goBtn = document.getElementById('go');
 goBtn.addEventListener('click', runMachine);
+const BAD = ["nigger","nigga","faggot","fag","retard","cunt","kike","spic","chink","tranny","rape","raping","molest","pedophile","paedophile","kill yourself","kys","hitler","nazi"];
+function dirty(s){
+  const t = (s||"").toLowerCase().replace(/[^a-z]/g,"");
+  return BAD.some(w=> t.includes(w.replace(/[^a-z]/g,"")));
+}
+function refuse(){
+  const tag = document.getElementById('vtag');
+  tag.className = 'tag roast';
+  tag.textContent = 'NICE TRY';
+  document.getElementById('vscore').textContent = '🚫';
+  document.getElementById('vtxt').textContent = "Yeah nah. The machine doesn't run on that. Keep it clean and feed it an actual idea. 😏";
+  document.getElementById('art').innerHTML = '<div class="gen">no roast, no picture, no board. try again with a real one.</div>';
+}
 async function runMachine(){
   const idea = document.getElementById('idea').value.trim();
+  const who = document.getElementById('who').value.trim();
+  if(!who){ shakeName(); return; }
   if(idea.length < 4){ shake(); return; }
-  const who = document.getElementById('who').value.trim() || "Anonymous Brave Soul";
   let useMode = mode === "surprise" ? (Math.random()>0.5?"roast":"praise") : mode;
   goBtn.disabled = true;
   goBtn.innerHTML = '<span class="spark">⚙️</span> THE MACHINE IS THINKING…';
@@ -397,13 +411,20 @@ async function runMachine(){
   document.getElementById('vscore').textContent = '—';
   document.getElementById('vtxt').innerHTML = '<span class="cursor"></span>';
   document.getElementById('art').innerHTML = '<div class="gen">painting your portrait<span class="dots"></span></div>';
+  if(dirty(idea) || dirty(who)){
+    refuse();
+    goBtn.disabled = false;
+    goBtn.innerHTML = '<span class="spark">🔥</span> RUN THE MACHINE';
+    return;
+  }
   try{
     const verdict = await getVerdict(idea, useMode);
+    if(verdict.safe === false){ refuse(); return; }
     typeOut(document.getElementById('vtxt'), verdict.text);
     document.getElementById('vscore').textContent = verdict.score + ' / 100';
     lastResult = { who, idea, mode:useMode, text:verdict.text, score:verdict.score };
     genImage(idea, useMode, verdict.text).catch(()=>{});
-    saveScore(who, verdict.score, useMode).catch(()=>{});
+    saveScore(who, verdict.score, useMode, idea).catch(()=>{});
   }catch(e){
     document.getElementById('vtxt').textContent = "🔥 The machine overheated. Give it a sec and run it again.";
   }finally{
@@ -415,7 +436,7 @@ async function getVerdict(idea, useMode){
   const sys = useMode==='roast'
     ? "You are the Friday Roast Machine: a savage, witty stand-up comedian AI. Roast the user's idea HARD but playfully, punchy, clever, never genuinely cruel, no slurs, nothing about protected groups. 3-4 sharp sentences. End by grudgingly admitting ONE thing that could actually work."
     : "You are the Friday Roast Machine in HYPE mode: an over-the-top hype-man AI. Praise the user's idea with wild, funny, specific enthusiasm, 3-4 sentences. Be genuinely encouraging but keep it ridiculous and fun. Sneak in one real, useful angle.";
-  const prompt = sys + "\n\nReturn STRICT JSON only, no markdown: {\"text\":\"...\",\"score\":<integer 1-100>}. The score = how good the idea actually is (roast mode can still give a high score to a secretly great idea).\n\nIDEA: " + idea;
+  const prompt = sys + "\n\nALSO act as a safety filter. Set \"safe\" to false if the input is hate speech, a slur, sexual/violent content, targeted harassment, or obvious troll garbage with no real idea in it. Set \"safe\" to true for any genuine business/product/project idea, even a silly or bad one.\n\nReturn STRICT JSON only, no markdown: {\"safe\":<true|false>,\"text\":\"...\",\"score\":<integer 1-100>}. The score = how good the idea actually is (roast mode can still give a high score to a secretly great idea).\n\nINPUT: " + idea;
   const r = await fetch(PROXY + "/" + PROVIDER, {
     method:"POST", headers:{"Content-Type":"application/json"},
     body: JSON.stringify({ model: TEXT_MODEL, messages:[{role:"user",content:prompt}], max_completion_tokens: 500 })
@@ -423,8 +444,8 @@ async function getVerdict(idea, useMode){
   const data = await r.json();
   let txt = extractText(data);
   const m = txt.match(/\{[\s\S]*\}/);
-  let out = { text: txt, score: Math.floor(Math.random()*40)+50 };
-  if(m){ try{ const p = JSON.parse(m[0]); out.text = p.text||txt; out.score = parseInt(p.score)||out.score; }catch(e){} }
+  let out = { text: txt, score: Math.floor(Math.random()*40)+50, safe: true };
+  if(m){ try{ const p = JSON.parse(m[0]); out.text = p.text||txt; out.score = parseInt(p.score)||out.score; if(p.safe===false) out.safe=false; }catch(e){} }
   return out;
 }
 async function genImage(idea, useMode, verdict){
@@ -452,16 +473,18 @@ async function loadBoard(){
     const top = rows.slice(0,10);
     if(!top.length){ lb.innerHTML = '<div class="lb-empty">no survivors yet. be the first to run the machine 🔥</div>'; return; }
     lb.innerHTML = top.map((x,i)=>{
-      const name=(x.Name||x.name||'???'); const score=(x.Score||x.score||0); const md=(x.Mode||x.mode||'');
-      return '<div class="lb-row"><div class="rank">'+(i+1)+'</div><div class="who">'+esc(name)+'<small>'+esc(md)+'</small></div><div class="pts">'+esc(score)+'</div></div>';
+      const name=(x.Name||x.name||'???'); const score=(x.Score||x.score||0); const idea=(x.Idea||x.idea||'');
+      const sub = idea ? '<small>"'+esc(idea)+'"</small>' : '';
+      return '<div class="lb-row"><div class="rank">'+(i+1)+'</div><div class="who">'+esc(name)+sub+'</div><div class="pts">'+esc(score)+'</div></div>';
     }).join('');
   }catch(e){ lb.innerHTML = '<div class="lb-empty">board\'s warming up — check back in a sec 🔥</div>'; }
 }
-async function saveScore(name, score, md){
+async function saveScore(name, score, md, idea){
+  const trimmed = (idea||"").slice(0,60);
   try{
     await fetch(BOARD_SAVE, {
       method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Date:new Date().toISOString() } })
+      body: JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() } })
     });
     setTimeout(loadBoard, 2000);
   }catch(e){}
@@ -491,6 +514,7 @@ function typeOut(el, text){
 }
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function shake(){const t=document.getElementById('idea');t.style.borderColor='var(--fire)';t.animate([{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(0)'}],{duration:240});setTimeout(()=>t.style.borderColor='',600)}
+function shakeName(){const t=document.getElementById('who');t.style.borderColor='var(--fire)';t.placeholder='👈 drop a name first (any name)';t.animate([{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(0)'}],{duration:240});t.focus();setTimeout(()=>t.style.borderColor='',1200)}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1600)}
 loadBoard();
 </script>
