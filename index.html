@@ -19,13 +19,13 @@
 
 <!-- SEO Meta Tags -->
 <title>Friday Roast Machine — Feed It An Idea, It Roasts You</title>
-<meta name="description" content="Push no-cors save fix" />
+<meta name="description" content="Push form-relay + no-cors redundant save" />
 <meta property="og:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta property="og:description" content="Push no-cors save fix" />
+<meta property="og:description" content="Push form-relay + no-cors redundant save" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Friday Roast Machine — Feed It An Idea, It Roasts You" />
-<meta name="twitter:description" content="Push no-cors save fix" />
+<meta name="twitter:description" content="Push form-relay + no-cors redundant save" />
 <!-- End SEO Meta Tags -->
 <meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5192/sheet-data">
 <script data-lp-token-hydrate>
@@ -461,12 +461,35 @@ async function loadBoard(){
 }
 async function saveScore(name, score, md, idea){
   const trimmed = (idea||"").slice(0,60);
-  const payload = JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() } });
   try{
-    await fetch(BOARD_SAVE, { method:"POST", headers:{"Content-Type":"text/plain;charset=UTF-8"}, body: payload, mode:"no-cors", keepalive:true });
+    const sinkName = "rb_sink_" + Date.now();
+    const frame = document.createElement('iframe');
+    frame.name = sinkName; frame.style.display = 'none';
+    document.body.appendChild(frame);
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.target = sinkName;
+    form.style.display = 'none';
+    const fields = { Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() };
+    Object.keys(fields).forEach(function(k){
+      const inp = document.createElement('input');
+      inp.name = k; inp.value = fields[k];
+      form.appendChild(inp);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(function(){ form.remove(); frame.remove(); }, 4000);
   }catch(e){}
-  setTimeout(loadBoard, 2500);
-  setTimeout(loadBoard, 6000);
+  try{
+    await fetch(BOARD_SAVE, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ contactName:name, data:{ Name:name, Score:String(score), Mode:md, Idea:trimmed, Date:new Date().toISOString() } }),
+      mode:"no-cors", keepalive:true
+    });
+  }catch(e){}
+  setTimeout(loadBoard, 3500);
+  setTimeout(loadBoard, 8000);
 }
 function shareLine(){
   if(!lastResult) return "I just got roasted by the Friday Roast Machine 🔥";
